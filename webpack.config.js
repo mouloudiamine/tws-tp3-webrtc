@@ -1,7 +1,7 @@
 const path = require('path');
 
 module.exports = {
-  entry: './serveur/index.js',
+  entry: './serveur/index.jsx',
   output: {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
@@ -32,7 +32,7 @@ const htmlPlugin = new HtmlWebPackPlugin({
   filename: "./index.html"
 });
 module.exports = {
-  entry: "./client/index.js",
+  entry: "./client/index.jsx",
   output: { // NEW
     path: path.join(__dirname, 'dist'),
     filename: "[name].js"

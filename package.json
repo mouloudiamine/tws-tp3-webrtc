@@ -2,7 +2,7 @@
   "name": "tp1-mouloudi",
   "version": "1.0.0",
   "description": "TP1",
-  "main": "index.js",
+  "main": "./client/index.jsx",
   "dependencies": {
     "@babel/core": "^7.6.0",
     "@babel/preset-env": "^7.6.0",
