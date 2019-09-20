@@ -1,0 +1,24 @@
+{
+  "name": "tp1-mouloudi",
+  "version": "1.0.0",
+  "description": "TP1",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "webpack": "^4.40.2",
+    "webpack-cli": "^3.3.9"
+  },
+  "scripts": {
+    "start": "node serveur/index.js",
+    "build": "webpack --mode production",
+    "test": "echo \"Error: pas de tests pour le moment\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://forge.univ-lyon1.fr/p1926878/tp1-mouloudi.git"
+  },
+  "author": "MOULOUDI",
+  "license": "ISC"
+}
