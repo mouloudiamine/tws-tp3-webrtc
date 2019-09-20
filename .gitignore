@@ -1,2 +1,15 @@
-node_modules
+
+# Dependency directories
+node_modules/
+jspm_packages/
+
+
+# Optional npm cache directory
+.npm
+
+# dist
+dist
+
+# idea
 .idea
+
