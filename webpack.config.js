@@ -46,6 +46,11 @@ module.exports = {
         use: {
           loader: "babel-loader"
         }
+      },
+      {
+        test: /\.(png|svg|jpg|gif)$/,
+        loader: "file-loader",
+        options: { name: '/static/[name].[ext]' }
       }
     ]
   }
