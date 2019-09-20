@@ -20,6 +20,7 @@
   "scripts": {
     "start": "node serveur/index.js",
     "build": "webpack --mode production ",
+    "dev": "webpack --mode development && node serveur/index.js",
     "test": "echo \"Error: pas de tests pour le moment\" && exit 1"
   },
   "repository": {
