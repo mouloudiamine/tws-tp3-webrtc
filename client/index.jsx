@@ -7,11 +7,7 @@ import ButtonMaterialize from './components/ButtonMaterialize/index.jsx';
 const Index = () => {
 
     return (
-        <div className="container">
-            <Header/>
-            <Content/>
-            <ButtonMaterialize/>
-        </div>
+      <h2>hello world</h2>
     );
 };
 ReactDOM.render(<Index/>, document.getElementById('root'));
