@@ -1,13 +1,4 @@
-
-# Dependency directories
-./node_modules
-node_modules
-# Optional npm cache directory
-.npm
-
-# dist
-./dist
-.dist
-# idea
-.idea
-
+.idea/
+node_modules/
+dist/
+package-lock.json
