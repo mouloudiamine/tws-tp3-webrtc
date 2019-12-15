@@ -23,7 +23,7 @@ class SignalingConnection {
     let scheme;
     // eslint-disable-next-line no-undef
     if (document.location.protocol === 'https:') {
-      scheme = 'wss:';
+      scheme = 'wss';
     } else {
       scheme = 'ws';
     }
