@@ -34,10 +34,11 @@ Environnement de test est le logiciel chrome
 
 https://tiw8-tp3-webrtc.herokuapp.com/
 
-#### lien gitlab 
+#### lien github 
 
 https://github.com/mouloudiamine/tws-tp3-webrtc.git
  
+
 
 
 
