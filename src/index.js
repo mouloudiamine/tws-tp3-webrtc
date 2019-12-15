@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-// eslint-disable-next-line import/named
-import { Videochat } from './composants/Videochat';
+import Home from './composants/Videochat';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import './assert/monstyle.css';
 
 const Index = () => (
   // eslint-disable-next-line react/jsx-filename-extension
-  <Videochat />
+  <Home />
 );
 
 // eslint-disable-next-line no-undef

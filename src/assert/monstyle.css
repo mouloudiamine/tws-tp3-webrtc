@@ -1,0 +1,126 @@
+/* There is no Javascript.  Everything shown (excluding the "Watch Again" button) has been created without any Javascript and is written entirely in HTML and CSS. */
+body {
+    background-color: #09ADEC;
+    text-align: center;
+    font-family: 'Open Sans', sans-serif;
+    overflow-x: hidden;
+
+}
+#skype-logo {
+    margin: auto;
+    display: block;
+    padding: 5em;
+}
+#skype-logo .skype-s {
+    color: #09ADEC;
+    font-family: "Arial Rounded MT Bold", "Helvetica Rounded", Arial, sans-serif;
+    animation: skype-s-expand 2.5s 1;
+    position: absolute;
+    background-color: #FFF;
+    display: inline-block;
+    width: 125px;
+    height: 125px;
+    line-height: 125px;
+    text-align: center;
+    border-radius: 50%;
+    font-size: 6.5em;
+    font-weight: bold;
+    margin-left: -75px;
+}
+#skype-logo .skype-s::before,
+#skype-logo .skype-s::after {
+    animation: skype-bob-pop 2.5s 1 linear;
+    content: "";
+    display: inline-block;
+    background-color: #FFF;
+    width: 75px;
+    height: 75px;
+    position: absolute;
+    border-radius: 50%;
+    z-index: -1;
+}
+#skype-logo .skype-s::before {
+    left: -6px;
+    top: -6px;
+}
+#skype-logo .skype-s::after {
+    right: -6px;
+    bottom: -6px;
+}
+#skype-logo .skype-text {
+    margin-left: 65px;
+    animation: skype-text-slide 2.5s 1;
+    font-size: 5em;
+    color: #FFF;
+    line-height: 125px;
+}
+@keyframes skype-s-expand {
+    0% {
+        transform: scale(0, 0);
+        color: #FFF;
+        margin-left: 0;
+    }
+    41% {
+        transform: scale(1.1, 1.1);
+    }
+    53% {
+        transform: scale(1.1, 1.1);
+        color: #FFF;
+    }
+    54% {
+        transform: scale(1.1, 1.1);
+        color: #09ADEC;
+    }
+    62% {
+        transform: scale(1.6, 1.6);
+    }
+    63% {
+        transform: scale(1.6, 1.6);
+    }
+    73% {
+        transform: scale(1.4, 1.4);
+        margin-left: 0;
+    }
+    100% {
+        transform: scale(1, 1);
+    }
+}
+@keyframes skype-bob-pop {
+    0% {
+        visibility: hidden;
+    }
+    53% {
+        visibility: hidden;
+    }
+}
+@keyframes skype-text-slide {
+    0% {
+        color: #09ADEC;
+        margin-left: 0;
+    }
+    73% {
+        color: #09ADEC;
+        margin-left: 0;
+    }
+    74% {
+        color: #FFF;
+    }
+}
+a {
+    text-decoration: none;
+    color: #FFF;
+    font-weight: bold;
+    text-align: center;
+    font-size: 2em;
+    border: 4px solid #FFF;
+    padding: 0.25em 0.5em;
+    display: block;
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+}
+a:hover {
+    background-color: #FFF;
+    color: #09ADEC;
+}
+
