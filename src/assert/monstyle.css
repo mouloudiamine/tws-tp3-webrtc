@@ -4,6 +4,7 @@ body {
     text-align: center;
     font-family: 'Open Sans', sans-serif;
     overflow-x: hidden;
+    overflow-y: hidden;
 
 }
 #skype-logo {
@@ -124,3 +125,8 @@ a:hover {
     color: #09ADEC;
 }
 
+
+.skypeColor{
+    background-image: url("http://www.gsfdcy.com/data/img1/78/2054700-skype-wallpaper.png") ;
+    background-repeat: no-repeat;
+}

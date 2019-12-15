@@ -25,6 +25,7 @@
 // http://creativecommons.org/publicdomain/zero/1.0/
 
 
+// eslint-disable-next-line import/no-extraneous-dependencies
 const express = require('express');
 
 const app = express();

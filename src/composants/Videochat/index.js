@@ -4,11 +4,10 @@ import {
   Button, ButtonGroup,
 } from 'react-bootstrap';
 import Local from './Local';
-// eslint-disable-next-line import/named
-import { Remote } from './Remote';
+import Remote from './Remote';
 
 
-class Home extends React.Component {
+class Videochat extends React.Component {
   // eslint-disable-next-line react/state-in-constructor
   state = {
     firstVisit: true,
@@ -30,11 +29,13 @@ class Home extends React.Component {
               {/* eslint-disable-next-line react/jsx-no-undef */}
               <ButtonGroup aria-label="Basic example ">
                 <Button
+                  variant="danger"
                   onClick={() => this.setState({ firstVisit: false })}
                 >
                   Version locale
                 </Button>
                 <Button
+                  variant="danger"
                   onClick={() => this.setState({ firstVisit: false, local: false })}
                 >
                   Version remote
@@ -42,11 +43,11 @@ class Home extends React.Component {
               </ButtonGroup>
             </div>
           )
-          // eslint-disable-next-line react/destructuring-assignment
+          // eslint-disable-next-line react/destructuring-assignment,react/jsx-no-undef
           : (this.state.local ? <Local /> : <Remote />)}
       </div>
     );
   }
 }
 
-export default Home;
+export default Videochat;

@@ -158,7 +158,7 @@ class Local extends React.Component {
   render() {
     return (
       // eslint-disable-next-line react/jsx-filename-extension
-      <Row className="vh-100 ">
+      <Row className="vh-100 skypeColor">
         <Col>
           <Row className="h-75">
             <Col xs={6}>
@@ -182,7 +182,7 @@ class Local extends React.Component {
             <Col className="text-center flex-row justify-content-center align-content-center">
               {/* eslint-disable-next-line react/button-has-type */}
               <button
-                className="btn-floating  grey darken-3"
+                className="btn-floating btn-floating waves-effect waves-light btn-large  green "
                 onClick={this.start}
                 disabled={!this.state.startAvailable}
               >
@@ -192,7 +192,7 @@ class Local extends React.Component {
               </button>
               {/* eslint-disable-next-line react/button-has-type */}
               <button
-                className="btn-floating  green darken-2"
+                className="btn-floating  waves-effect waves-light btn-large  green "
                 onClick={this.call}
                 disabled={!this.state.callAvailable}
               >
@@ -202,7 +202,7 @@ class Local extends React.Component {
               </button>
               {/* eslint-disable-next-line react/button-has-type */}
               <button
-                className="btn-floating  deep-orange lighten-1"
+                className=" btn-floating waves-effect waves-light btn-large  deep-orange lighten-1"
                 onClick={this.hangUp}
                 disabled={!this.state.hangupAvailable}
               >

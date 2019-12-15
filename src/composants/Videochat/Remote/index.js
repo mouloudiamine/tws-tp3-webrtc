@@ -1,20 +1,19 @@
 import React from 'react';
-import ButtonToolbar from 'react-bootstrap/ButtonToolbar';
 import Button from 'react-bootstrap/Button';
 import {
   Col, Container, FormControl, InputGroup, Row,
 } from 'react-bootstrap';
 import SignalingConnection from './SignalingConnection';
 import PeerConnection from './PeerConnection';
+import Index from './Users';
 
-// eslint-disable-next-line import/prefer-default-export
-export class Remote extends React.Component {
+class Remote extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       startAvailable: true,
-      callAvailable: false,
+      callAvailable: true,
       hangupAvailable: false,
       userId: 0,
       userName: 'user',
@@ -29,27 +28,26 @@ export class Remote extends React.Component {
   }
 
   componentDidMount() {
-    console.log('Component did mount');
     this.signalingConnection = new SignalingConnection({
-      // eslint-disable-next-line no-undef
       socketURL: window.location.host,
-      onOpen: () => { console.log('signalingConnection open'); },
+      onOpen: () => {
+      },
       onMessage: this.onSignalingMessage,
     });
   }
 
   onSignalingMessage = (msg) => {
-    console.log('signaling message : ', msg);
+    // eslint-disable-next-line default-case
     switch (msg.type) {
       case 'id':
         this.setState({ userId: msg.id });
         console.log(`changed user id ${JSON.stringify(this.state)}`);
         break;
       case 'rejectusername':
+        this.usernameInput.current.value = msg.name;
         this.setState({ userName: msg.name });
         break;
       case 'userlist':
-        console.log(`this is users list ${msg.users}`);
         this.setState({ usersList: [...msg.users], userName: this.usernameInput.current.value });
         break;
 
@@ -57,14 +55,12 @@ export class Remote extends React.Component {
       // signaling information during negotiations leading up to a video
       // call.
       case 'connection-offer': // Invitation and offer to chat
-        console.log(`[ recv ] connection-offer from ${msg.name} to ${msg.target}`);
         this.targetUsername = msg.name;
         this.createPeerConnection();
         this.peerConnection.connectionOffer(msg);
         break;
 
       case 'connection-answer': // Callee has answered our offer
-        console.log(`[ recv ] connection-answer from ${msg.name} to ${msg.target}`);
         this.peerConnection.connectionAnswer(msg);
         break;
 
@@ -73,7 +69,7 @@ export class Remote extends React.Component {
         break;
 
       case 'hang-up': // The other peer has hung up the call
-        // this.close();
+        this.close();
         break;
     }
   };
@@ -103,14 +99,28 @@ export class Remote extends React.Component {
   };
 
   call = (user) => {
+    // eslint-disable-next-line react/destructuring-assignment
+    const username = this.state.userName;
+    const localStreamRefCurrent = this.localStreamRef.current;
+    if (user === username) {
+      return;
+    }
+    if (localStreamRefCurrent === false) {
+      // eslint-disable-next-line no-undef
+      alert('Veuillez activer la cam ');
+      return;
+    }
     this.targetUsername = user; // ref et non state
     this.createPeerConnection();
     this.peerConnection.offerConnection();
+    this.setState({
+      callAvailable: false,
+      hangupAvailable: true,
+    });
   };
 
   createPeerConnection = () => {
     if (this.peerConnection) return;
-    console.log(`creating connection from ${this.state.userName} to ${this.targetUsername.value}`);
     this.peerConnection = new PeerConnection({
       gotRemoteStream: this.gotRemoteStream,
       gotRemoteTrack: this.gotRemoteTrack,
@@ -131,6 +141,7 @@ export class Remote extends React.Component {
   gotRemoteTrack = (event) => {
     const remoteVideo = this.remoteVideoRef.current;
     if (remoteVideo.srcObject !== event.streams[0]) {
+      // eslint-disable-next-line prefer-destructuring
       remoteVideo.srcObject = event.streams[0];
     }
     this.setState({ hangupAvailable: true });
@@ -139,6 +150,7 @@ export class Remote extends React.Component {
   gotRemoteStream = (event) => {
     const remoteVideo = this.remoteVideoRef.current;
     if (remoteVideo.srcObject !== event.streams[0]) {
+      // eslint-disable-next-line prefer-destructuring
       remoteVideo.srcObject = event.streams[0];
     }
   };
@@ -156,89 +168,105 @@ export class Remote extends React.Component {
       .forEach((track) => track.stop());
     this.remoteVideoRef.current.src = null;
 
-    // TODO Mettre à jour l'état des boutons, et supprimer targetUsername.
+    // Mettre à jour l'état des boutons, et supprimer targetUsername.
+    this.setState({
+      callAvailable: true,
+      hangupAvailable: false,
+    });
+    this.targetUsername = null;
   };
 
   render() {
-    console.log('rerendering...');
-
     const userList = [];
     for (let i = 0; i < this.state.usersList.length; i += 1) {
       userList.push(
-        <InputGroup key={i} className="mb-3" size="sm">
-          <FormControl
-            plaintext
-            readOnly
-            defaultValue={this.state.usersList[i]}
-            onClick={(e) => { this.call(e.target); }}
-          />
-          <InputGroup.Append>
-            <Button
-              // disabled={!this.state.callAvailable}
-              variant="outline-success"
-            >
-Call
-            </Button>
-          </InputGroup.Append>
-        </InputGroup>,
+        <Index
+          key={i}
+          user={this.state.usersList[i]}
+          callAvailable={this.state.callAvailable}
+          callback={this.call}
+        />,
       );
     }
 
     return (
-      <Container fluid className="vh-100">
-        <Row className="h-100">
-          <Col xs={2}>
+      <Container fluid className="vh-100  skypeColor">
+        <Row className="h-100 ">
+          <Col xs={2} className="bg-white ">
             <Row>
               <Col>
-                <InputGroup className="mb-3" size="sm">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/60/Skype_logo_%282019%E2%80%93present%29.svg/1200px-Skype_logo_%282019%E2%80%93present%29.svg.png" alt="logo" width={100} height={100} />
+                <InputGroup className="mb-3 mt-5" size="sm">
                   <FormControl
                     ref={this.usernameInput}
-                    placeholder="username"
+                    placeholder="Nom d'utilisateur"
                     aria-label="Username"
                     aria-describedby="basic-addon2"
                   />
                   <InputGroup.Append>
-                    <Button onClick={() => { this.pushUsername(); }} variant="outline-primary">OK</Button>
+                    <Button
+                      onClick={() => {
+                        this.pushUsername();
+                      }}
+                      variant="danger"
+                    >
+                      <i className="material-icons">add</i>
+                    </Button>
                   </InputGroup.Append>
                 </InputGroup>
               </Col>
             </Row>
             <Col>
-              List of users :
+              <h6 className="text-white-50">  </h6>
               {userList}
             </Col>
             <Row />
           </Col>
           <Col xs={10}>
-            <Row className="h-75">
-              <Col xs={6} className="p-0">
-                <video
-                  className="w-100"
-                  ref={this.localVideoRef}
-                  autoPlay
-                  muted
-                />
+            <Row className="vh-100">
+              <Col>
+                <Row className="h-75">
+                  <Col xs={6}>
+                    <video
+                      className="w-100 mt-4"
+                      ref={this.localVideoRef}
+                      autoPlay
+                      muted
+                    />
+                  </Col>
+                  <Col xs={6}>
+                    <video
+                      className="w-100 mt-4"
+                      ref={this.remoteVideoRef}
+                      autoPlay
+                    />
+                  </Col>
+                </Row>
+                <Row className="h-25 align-content-center justify-content-center">
+                  <Col className="text-center flex-row justify-content-center align-content-center">
+                    {/* eslint-disable-next-line react/button-has-type */}
+                    <button
+                      className="btn-floating waves-effect waves-light btn-large  green darken-1"
+                      onClick={this.start}
+                      disabled={!this.state.startAvailable}
+                    >
+                      <i className="material-icons">
+                        videocam
+                      </i>
+                    </button>
+                    {/* eslint-disable-next-line react/button-has-type */}
+                    <button
+                      className=" ml-2 btn-floating waves-effect waves-light btn-large  deep-orange lighten-1"
+                      onClick={this.close}
+                      disabled={!this.state.hangupAvailable}
+                    >
+                      <i className="material-icons">
+                        call_end
+                      </i>
+                    </button>
+                  </Col>
+                </Row>
               </Col>
-              <Col xs={6} className="p-0">
-                <video
-                  className="w-100"
-                  ref={this.remoteVideoRef}
-                  autoPlay
-                />
-              </Col>
-            </Row>
-            <Row className="h-25">
-              <ButtonToolbar>
-                <Button onClick={this.start} disabled={!this.state.startAvailable}>
-                  Start
-                </Button>
-                <Button onClick={this.call} disabled={!this.state.callAvailable}>
-                  Call
-                </Button>
-                <Button onClick={this.hangUp} disabled={!this.state.hangupAvailable}>
-                  Hang Up
-                </Button>
-              </ButtonToolbar>
             </Row>
           </Col>
         </Row>
@@ -246,3 +274,5 @@ Call
     );
   }
 }
+
+export default Remote;
