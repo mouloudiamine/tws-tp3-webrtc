@@ -12,7 +12,8 @@ class Users extends React.Component {
         <FormControl
           plaintext
           readOnly
-          defaultValue={`  ${this.props.user}`}
+
+          defaultValue={this.props.user === null ? '' : this.props.user}
         />
         <InputGroup.Append>
           <Button

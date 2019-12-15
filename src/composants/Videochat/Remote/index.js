@@ -101,12 +101,10 @@ class Remote extends React.Component {
   call = (user) => {
     // eslint-disable-next-line react/destructuring-assignment
     const username = this.state.userName;
-    const localStreamRefCurrent = this.localStreamRef.current;
     if (user === username) {
       return;
     }
-    if (localStreamRefCurrent === false) {
-      // eslint-disable-next-line no-undef
+    if (!this.localStreamRef.current) {
       alert('Veuillez activer la cam ');
       return;
     }
